@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+.input:focus, .select:focus {
+  @apply outline-none;
+}
+
+.select:focus {
+  @apply outline-none;
+  border: 2px solid red;
+}
+
+.counseling-table {
+  @apply w-10/12 h-3 justify-center mt-12 mb-2;
+}
+
+/* .btn:is(input[type="radio"]:checked) {
+  @apply bg-red-600 border-red-600;
+} */
