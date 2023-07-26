@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore } from '@firebase/firestore'
 
 const firebaseConfig = {
   // firebase 설정과 관련된 개인 정보
@@ -23,4 +24,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
 
-export { firebaseAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword};
+const db = getFirestore(firebaseApp);
+
+export { firebaseAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword, db };

@@ -146,7 +146,7 @@ const CounselingView = () => {
         <button className="join-item btn">9</button>
         <button className="join-item btn">10</button>
         <button className="join-item btn">다음</button>
-        <button className="justify-end btn btn-error">글쓰기</button>
+        <Link to="/writer" className="justify-end btn btn-error">글쓰기</Link>
       </div>
     </>
   )

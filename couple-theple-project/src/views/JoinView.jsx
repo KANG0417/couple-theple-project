@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Calendar from "../modules/Calender";
 import { firebaseAuth, createUserWithEmailAndPassword } from "../firebase";
-import { FirebaseError } from 'firebase/app';
-import { parseWithOptions } from 'date-fns/fp';
+import { Firestore } from "firebase/firestore";
 
-const JoinView = ():JSX.Element => {
+const JoinView = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("　");
@@ -13,12 +12,13 @@ const JoinView = ():JSX.Element => {
     try {
       setErrorMsg('　');
       const createdUser = await createUserWithEmailAndPassword(firebaseAuth, registerEmail, registerPassword);
+      const db = Firestore.firestore() = db.collection("users").do
       console.log(createdUser);
       setRegisterEmail("");
       setRegisterPassword("");
   
     } catch(err){
-      //console.log(err.code);
+      console.log(err.code);
       switch (err.code) {
         case 'auth/weak-password':
           setErrorMsg('비밀번호는 6자리 이상이어야 합니다');
@@ -45,8 +45,10 @@ const JoinView = ():JSX.Element => {
               type="email"
               placeholder="아이디@이메일을 입력해주세요"
               value={registerEmail}
+              name={email}
               onChange={(e) => {setRegisterEmail(e.target.value)}}
-              className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2" />
+              className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2"
+              required/>
             <label className="label">
               <span className="label-text">비밀번호</span>
             </label>
@@ -54,17 +56,26 @@ const JoinView = ():JSX.Element => {
               type="password"
               placeholder="비밀번호를 입력해주세요"
               value={registerPassword}
+              name={password}
               onChange={(e) => {setRegisterPassword(e.target.value)}}
-              className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2" />
+              className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2"
+              required/>
             <label className="label">
               <span className="label-text">비밀번호 재확인</span>
             </label>
             <input
               type="password"
               placeholder="비밀번호를 확인해주세요"
-              // value={}
-              className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2" />
-            <div className="flex w-full max-w-xs mt-1 items-center">
+              className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2"
+              required/>
+              <input
+                type="text"
+                value={errorMsg}
+                onChange={(e) => {setErrorMsg(e.target.value)}}
+                className="text-error"
+                readOnly
+                />
+            {/* <div className="flex w-full max-w-xs mt-1 items-center">
               <label className="label">
                 <span className="label">남자</span>
               </label>
@@ -73,11 +84,16 @@ const JoinView = ():JSX.Element => {
                 <span className="label">여자</span>
               </label>
               <input type="radio" name="radio-2" className="radio radio-error" />
-            </div>
+            </div> */}
               <label className="label">
                 <span className="label-text">닉네임</span>
               </label>
-              <input type="text" placeholder="닉네임을 입력해주세요" className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2" />
+              <input
+                type="text"
+                placeholder="닉네임을 입력해주세요"
+                name={displayName}
+                className="input input-bordered w-full max-w-xs border-error focus:border-red-500 focus:border-2"
+                required/>
               <label className="label">
                 <span className="label-text text-error">커플된 날짜</span>
               </label>

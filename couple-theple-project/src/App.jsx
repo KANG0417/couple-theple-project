@@ -2,9 +2,11 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import './assets/tailwind.css';
 import React from 'react';
 import Nav from './components/Nav';
-import Routing from './pages/routing';
+import Routing from './pages/Routing';
+import { db } from './firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
-const App = ():JSX.Element => {
+const App = ()=> {
   return (
     <>
     <BrowserRouter>
